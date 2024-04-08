@@ -1,0 +1,80 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Swagger",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/cat": {
+      "post": {
+        "tags": [
+          "Cat"
+        ],
+        "summary": "Add a cat",
+        "description": "Add a cat",
+        "operationId": "addCat",
+        "requestBody": {
+          "description": "Create a new cat",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/Cat"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful operation"
+          },
+          "422": {
+            "description": "Validation error"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Cat": {
+        "required": [
+          "name",
+          "age"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "example": "Rodger"
+          },
+          "age": {
+            "type": "integer"
+          }
+        },
+        "xml": {
+          "name": "pet"
+        }
+      }
+    },
+    "securitySchemes": {
+      "petstore_auth": {
+        "type": "oauth2",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://petstore3.swagger.io/oauth/authorize",
+            "scopes": {
+              "write:pets": "modify pets in your account",
+              "read:pets": "read your pets"
+            }
+          }
+        }
+      },
+      "api_key": {
+        "type": "apiKey",
+        "name": "api_key",
+        "in": "header"
+      }
+    }
+  }
+}
