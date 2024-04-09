@@ -5,6 +5,7 @@ const logger = require('morgan');
 
 const indexRouter = require('./routes/index');
 const apiRouter = require('./routes/api');
+const {Error: JSONAPIError} = require("jsonapi-serializer");
 
 const app = express();
 
@@ -16,5 +17,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
 app.use('/api', apiRouter);
+
+app.use((err, req, res, next) => {
+	res.status(err.status).json(new JSONAPIError({
+		status: err.status,
+		title: 'Internal Error',
+		detail: 'Something went wrong'
+	}))
+})
+
+app.use((req, res, next) => {
+	res.status(404).json(new JSONAPIError({
+		status: 404,
+		title: 'Not Found',
+		detail: 'Not found'
+	}))
+})
 
 module.exports = app;

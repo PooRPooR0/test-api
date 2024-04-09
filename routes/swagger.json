@@ -40,7 +40,9 @@
       "Cat": {
         "required": [
           "name",
-          "age"
+          "age",
+          "gender",
+          "coatColor"
         ],
         "type": "object",
         "properties": {
@@ -50,6 +52,16 @@
           },
           "age": {
             "type": "integer"
+          },
+          "gender": {
+            "type": "string",
+            "example": "male",
+            "enum": ["male", "female"]
+          },
+          "coatColor": {
+            "type": "string",
+            "example": "red",
+            "enum": ["red", "white", "black", "three-haired"]
           }
         },
         "xml": {
